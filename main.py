@@ -1,7 +1,7 @@
 # İçeri Aktar
 from flask import Flask, render_template, request, send_from_directory
-
-
+import os
+import random
 app = Flask(__name__)
 
 # Form sonuçları 
@@ -11,26 +11,37 @@ def index():
         # seçilen resmi almak
         selected_image = request.form.get('image-selector')
 
+        if(selected_image == "lucky"):
+            print(os.listdir('static/img'))
+            selected_image = random.choice(os.listdir('static/img'))
         # Görev #2. Metni almak
-        
+        text_top = request.form['textTop']
+        text_bottom = request.form['textBottom']
 
         # Görev #3. Metnin konumunu almak
-       
+        text_top_y =request.form['textTop_y']
+        text_bottom_y =request.form['textBottom_y']
+
 
         # Görev #3. Metnin rengini almak
-        
+        selected_color =request.form['color-selector']
 
         return render_template('index.html', 
                                # Seçilen resmi görüntüleme
                                selected_image=selected_image, 
 
                                # Görev #2. Metni görüntüleme
-                               
+                               text_top = text_top,
+                               text_bottom = text_bottom,
 
-                               # Görev #3. Rengi görüntüleme
-                               
+
                                
                                # Görev #3. Metnin konumunu görüntüleme
+                               text_top_y = text_top_y,
+                               text_bottom_y = text_bottom_y,
+                               # Görev #3. Rengi görüntüleme
+                               selected_color = selected_color
+                               
 
                                )
     else:

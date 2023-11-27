@@ -37,24 +37,31 @@
               <option value="logo.svg" {% if selected_image == 'logo.svg' %}selected{% endif %}>Bir mem seçin</option>
               <option value="meme_1.jpg" {% if selected_image == 'meme_1.jpg' %}selected{% endif %}>Afet kız</option>
               <option value="meme_2.jpg" {% if selected_image == 'meme_2.jpg' %}selected{% endif %}>iki düğme</option>
-              <!--Görev #1. Yeni meme buraya ekleyin -->
-
+              <option value="1.jpg" {% if selected_image == '1.jpg' %}selected{% endif %}>lucky1</option>
+              <option value="2.jpg" {% if selected_image == '2.jpg' %}selected{% endif %}>lucky2</option>
+              <option value="3.png" {% if selected_image == '3.png' %}selected{% endif %}>lucky3</option>
+              <option value="4.jpeg" {% if selected_image == '4.jpeg' %}selected{% endif %}>lucky4</option>
+              <option value="lucky" {% if selected_image == 'lucky' %}selected{% endif %}>lucky</option>
+            
 
             </select>
           </li>
           <li class="form-list_item">
             <label for="textTop">Üst metni buraya girin</label>
-            <input class="input_text" type="text" placeholder="Top text" name="textTop">
+            <input value={% if text_top != null %}{{text_top}}{% else %}""{% endif %} class="input_text" type="text" placeholder="Top text" name="textTop">
           </li>
           <li class="form-list_item">
             <label for="textBottom">Alt metni buraya girin</label>
-            <input class="input_text" type="text" placeholder="Bottom text" name="textBottom">
+            <input value={% if text_bottom != null %}{{text_bottom}}{% else %}""{% endif %} class="input_text" type="text" placeholder="Bottom text" name="textBottom">
           </li>
           <li class="form-list_item">
             <label for="color-selector">Metin rengini ayarla</label>
             <select name="color-selector" id="color-selector">
               <option value="white" {% if selected_color == 'white' %}selected{% endif %}>Beyaz</option>
               <option value="black" {% if selected_color == 'black' %}selected{% endif %}>Siyah</option>
+              <option value="blue" {% if selected_color == 'blue' %}selected{% endif %}>blue</option>
+              <option value="pink" {% if selected_color == 'pink' %}selected{% endif %}>pink</option>
+              
               <!--Ek görev #1. Yeni renkler ekleyin -->
 
 
@@ -62,11 +69,23 @@
           </li>
           <li class="form-list_item">
             <label for="textTop_y">Üst metnin Y ekseninde konumunu girin </label>
-            <input class="input_text" id="textTop_y" type="text" placeholder="Top text" name="textTop_y">
+            <input value={% if text_top_y != null %}{{text_top_y}}{% else %}""{% endif %} class="input_text" id="textTop_y" type="text" placeholder=
+            {% if text_top_y != null %}
+            {{text_top_y}} 
+            {% else %}
+            "Üst konumun ekseni" 
+            {% endif %}
+            name="textTop_y" required>
           </li>
           <li class="form-list_item">
             <label for="textBottom_y">Alt metnin Y ekseninde konumunu girin</label>
-            <input class="input_text" id="textBottom_y" type="text" placeholder="Bottom text" name="textBottom_y">
+            <input value={% if text_bottom_y != null %}{{text_bottom_y}}{% else %}""{% endif %} class="input_text" id="textBottom_y" type="text" placeholder=
+            {% if text_bottom_y != null %}
+            {{text_bottom_y}}
+            {% else %}
+            "Alt konumun ekseni" 
+            {% endif %}
+            name="textBottom_y" required>
           </li>
           <button type="submit">Meme oluşturucu</button>
         </ul>
@@ -74,14 +93,16 @@
     </div>
     <div class="meme-block" id="memeBlock">
       
-      <p class="text_top" style="<!-- Görev #3. Değişkenleri CSS’e taşıma  -->">
-        <!-- Görev #2. Değişkenleri HTML’e taşıma -->
+      <p class="text_top" style="color: {{selected_color}}; top: {{text_top_y}}px;"> 
+        {{text_top}}
+        
       </p>
 
       <img class="meme" src="{{ url_for('serve_images', path=selected_image) }}" alt="{{ selected_image }}">
 
-      <p class="text_bottom" style="<!-- Görev #3. Değişkenleri CSS’e taşıma  -->">
-        <!-- Görev #2. Değişkenleri HTML’e taşıma -->
+      <p class="text_bottom" style="color: {{selected_color}}; bottom: {{text_bottom_y}}px;">
+
+        {{text_bottom}}
       </p>
     </div>
     {% endblock %}
